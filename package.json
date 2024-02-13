@@ -1,0 +1,14 @@
+{
+  "name": "pulse-point-backend",
+  "version": "1.0.0",
+  "description": "This is a backend of pulse-point web application. This is a doctor portal web application backend. Throw this web app patient can take appoinment online and take other related services.",
+  "main": "index.js",
+  "author": "Tushar Imran",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
