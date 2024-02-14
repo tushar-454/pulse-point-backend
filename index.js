@@ -1,10 +1,11 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 require('dotenv').config();
 const port = process.env.PORT || 4000;
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const { default: mongoose } = require('mongoose');
+const globalError = require('./Error/globalError');
 
 app.use(
   cors({
@@ -15,9 +16,13 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
+app.use(globalError);
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.send('Pulse-point backend is running!');
+});
+app.get('/health', (_req, res) => {
+  res.send('Pulse-point api health Ok.');
 });
 
 mongoose
