@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const port = process.env.PORT || 4000;
+const routes = require('./Routes');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const globalError = require('./Error/globalError');
@@ -16,6 +17,7 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
+app.use(routes);
 app.use(globalError);
 
 app.get('/', (_req, res) => {
