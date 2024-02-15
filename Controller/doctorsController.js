@@ -6,44 +6,51 @@ const Doctor = require('../Model/Doctor');
 const createDoctor = async (req, res, next) => {
   try {
     const { name, email, photoUrl, mostSpecialist } = req.body;
-    const createdDoctor = new Doctor({
-      name,
-      email,
-      photoUrl,
-      mostSpecialist,
-      rating: 0,
-      role: ' ',
-      visitingFee: 0,
-      totalCounseling: 0,
-      specialist: ' ',
-      address: {
-        location: ' ',
-        mapLink: ' ',
-      },
-      tags: [],
-      overview: {
-        about: ' ',
-        services: [],
-        specialties: [],
-        education: [],
-        experience: [],
-        awards: [],
-      },
-      chamber: {
-        hospitalBranch: ' ',
-        floor: ' ',
-        room: ' ',
-        phoneNumber: ' ',
-        hospitalIframe: ' ',
-      },
-      review: [],
-      businessHours: [],
-    });
-    const doctor = await createdDoctor.save();
-    res.status(200).json({
-      message: 'success',
-      doctor,
-    });
+    const doctorExist = await Doctor.findOne({ email });
+    if (!doctorExist) {
+      const createdDoctor = new Doctor({
+        name,
+        email,
+        photoUrl,
+        mostSpecialist,
+        rating: 0,
+        role: ' ',
+        visitingFee: 0,
+        totalCounseling: 0,
+        specialist: ' ',
+        address: {
+          location: ' ',
+          mapLink: ' ',
+        },
+        tags: [],
+        overview: {
+          about: ' ',
+          services: [],
+          specialties: [],
+          education: [],
+          experience: [],
+          awards: [],
+        },
+        chamber: {
+          hospitalBranch: ' ',
+          floor: ' ',
+          room: ' ',
+          phoneNumber: ' ',
+          hospitalIframe: ' ',
+        },
+        review: [],
+        businessHours: [],
+      });
+      const doctor = await createdDoctor.save();
+      res.status(200).json({
+        message: 'success',
+        doctor,
+      });
+    } else {
+      res.status(400).json({
+        message: 'Doctor already exist',
+      });
+    }
   } catch (error) {
     next(error);
   }
