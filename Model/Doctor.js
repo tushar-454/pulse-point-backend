@@ -21,6 +21,10 @@ const doctorSchema = new Schema({
     type: Number,
     required: true,
   },
+  role: {
+    type: String,
+    required: true,
+  },
   visitingFee: {
     type: Number,
     required: true,
