@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const doctorsController = require('../Controller/doctorsController');
 
-router.get('/all-doctors', doctorsController.getAllDoctors);
+router.post('/create', doctorsController.createDoctor);
 
 module.exports = router;

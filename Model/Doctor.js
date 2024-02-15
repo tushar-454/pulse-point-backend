@@ -13,7 +13,7 @@ const doctorSchema = new Schema({
     type: String,
     required: true,
   },
-  MostSpecialist: {
+  mostSpecialist: {
     type: String,
     required: true,
   },
@@ -61,7 +61,7 @@ const doctorSchema = new Schema({
         type: [String],
         required: true,
       },
-      Specialties: {
+      specialties: {
         type: [String],
         required: true,
       },
