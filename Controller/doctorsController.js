@@ -41,7 +41,7 @@ const createDoctor = async (req, res, next) => {
     });
     const doctor = await createdDoctor.save();
     res.status(200).json({
-      message: 'All doctors fetched successfully',
+      message: 'success',
       doctor,
     });
   } catch (error) {
@@ -49,4 +49,19 @@ const createDoctor = async (req, res, next) => {
   }
 };
 
-module.exports = { createDoctor };
+/*
+  get all doctors from this api
+*/
+const getAllDoctors = async (_req, res, next) => {
+  try {
+    const doctors = await Doctor.find();
+    res.status(200).json({
+      message: 'success',
+      doctors,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { createDoctor, getAllDoctors };
