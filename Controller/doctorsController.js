@@ -80,4 +80,61 @@ const getDoctorByEmail = async (req, res, next) => {
   }
 };
 
-module.exports = { createDoctor, getAllDoctors, getDoctorByEmail };
+/**
+ * update doctor by email
+ */
+const updateDoctorByEmail = async (req, res, next) => {
+  try {
+    const { email: emailParams } = req.params;
+    const {
+      name,
+      photoUrl,
+      mostSpecialist,
+      rating,
+      role,
+      visitingFee,
+      totalCounseling,
+      specialist,
+      address,
+      tags,
+      overview,
+      chamber,
+      review,
+      businessHours,
+    } = req.body;
+    const updatedDoctor = await Doctor.findOne({ email: emailParams });
+    updatedDoctor.name = name ?? updatedDoctor.name;
+    updatedDoctor.photoUrl = photoUrl ?? updatedDoctor.photoUrl;
+    updatedDoctor.mostSpecialist =
+      mostSpecialist ?? updatedDoctor.mostSpecialist;
+    updatedDoctor.rating = rating ?? updatedDoctor.rating;
+    updatedDoctor.role = role ?? updatedDoctor.role;
+    updatedDoctor.visitingFee = visitingFee ?? updatedDoctor.visitingFee;
+    updatedDoctor.totalCounseling =
+      totalCounseling ?? updatedDoctor.totalCounseling;
+    updatedDoctor.specialist = specialist ?? updatedDoctor.specialist;
+    updatedDoctor.address =
+      { ...updatedDoctor.address, ...address } ?? updatedDoctor.address;
+    updatedDoctor.tags = tags ?? updatedDoctor.tags;
+    updatedDoctor.overview =
+      { ...updatedDoctor.overview, ...overview } ?? updatedDoctor.overview;
+    updatedDoctor.chamber =
+      { ...updatedDoctor.chamber, ...chamber } ?? updatedDoctor.chamber;
+    updatedDoctor.review = review ?? updatedDoctor.review;
+    updatedDoctor.businessHours = businessHours ?? updatedDoctor.businessHours;
+    await updatedDoctor.save();
+    res.status(200).json({
+      message: 'success',
+      updatedDoctor,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  createDoctor,
+  getAllDoctors,
+  getDoctorByEmail,
+  updateDoctorByEmail,
+};
