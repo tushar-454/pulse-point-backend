@@ -1,8 +1,8 @@
 const Doctor = require('../Model/Doctor');
 
-/* 
-  create a doctor from this api
-*/
+/**
+ * create doctor
+ */
 const createDoctor = async (req, res, next) => {
   try {
     const { name, email, photoUrl, mostSpecialist } = req.body;
@@ -49,9 +49,9 @@ const createDoctor = async (req, res, next) => {
   }
 };
 
-/*
-  get all doctors from this api
-*/
+/**
+ * get all doctors
+ */
 const getAllDoctors = async (_req, res, next) => {
   try {
     const doctors = await Doctor.find();
@@ -64,4 +64,20 @@ const getAllDoctors = async (_req, res, next) => {
   }
 };
 
-module.exports = { createDoctor, getAllDoctors };
+/**
+ * get doctor by email
+ */
+const getDoctorByEmail = async (req, res, next) => {
+  try {
+    const { email } = req.params;
+    const doctor = await Doctor.findOne({ email });
+    res.status(200).json({
+      message: 'success',
+      doctor,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { createDoctor, getAllDoctors, getDoctorByEmail };
